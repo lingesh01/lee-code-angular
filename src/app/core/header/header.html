@@ -1,0 +1,27 @@
+<header class="header">
+  <nav class="nav" [class.scrolled]="isScrolled">
+    <div class="nav-container">
+      <a routerLink="/" class="logo">
+        <span class="logo-text">Lee Code</span>
+      </a>
+      
+      <ul class="nav-links">
+        <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
+        <li><a routerLink="/portfolio" routerLinkActive="active">Portfolio</a></li>
+        <li><a routerLink="/articles" routerLinkActive="active">Articles</a></li>
+        <li><a routerLink="/about" routerLinkActive="active">About</a></li>
+      </ul>
+      
+      <div class="nav-actions">
+        <a href="https://youtube.com/@leecodetamil" target="_blank" class="btn-primary">
+          <i class="fab fa-youtube"></i>
+          YouTube
+        </a>
+      </div>
+      
+      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
+        <i class="fas fa-bars"></i>
+      </button>
+    </div>
+  </nav>
+</header>

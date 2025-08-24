@@ -1,0 +1,168 @@
+<div class="home-container" [class.loaded]="isLoaded">
+  <!-- Hero Section with Enhanced Animations -->
+  <section class="hero">
+    <div class="hero-background">
+      <div class="floating-shapes">
+        <div class="shape shape-1"></div>
+        <div class="shape shape-2"></div>
+        <div class="shape shape-3"></div>
+        <div class="shape shape-4"></div>
+      </div>
+      <div class="grid-overlay"></div>
+      <!-- Added particle effect -->
+      <div class="particles">
+        <div class="particle" *ngFor="let i of [].constructor(20); let idx = index" [style.animation-delay.s]="idx * 0.1"></div>
+      </div>
+    </div>
+
+    <div class="hero-content">
+      <div class="hero-text">
+        <h1 class="hero-title" #heroTitle></h1>
+        
+        <div class="hero-subtitle" #heroSubtitle>
+          <span class="static-text">I'm a </span>
+          <div class="rotating-text" #rotatingText>
+            <span 
+              *ngFor="let skill of skills; let i = index" 
+              [class.active]="i === currentSkillIndex"
+              class="skill-text"
+              [attr.data-text]="skill">
+              {{ skill }}
+            </span>
+            <!-- Enhanced cursor effect -->
+            <div class="text-cursor" [class.blinking]="!isAnimating"></div>
+          </div>
+        </div>
+
+        <p class="hero-description" appAnimateOnScroll="fadeInUp" [animationDelay]="600">
+          Passionate about teaching Data Structures & Algorithms, Low Level Design, 
+          and making complex programming concepts simple through engaging tutorials.
+        </p>
+
+        <div class="hero-actions" appAnimateOnScroll="fadeInUp" [animationDelay]="800">
+          <button class="btn-primary hero-btn enhanced-btn" (click)="scrollToSection('skills')">
+            <div class="btn-content">
+              <i class="fas fa-rocket"></i>
+              <span>Explore My Work</span>
+            </div>
+            <div class="btn-particles">
+              <div class="btn-particle" *ngFor="let i of [].constructor(6)"></div>
+            </div>
+            <div class="btn-glow"></div>
+          </button>
+          
+          <a href="https://youtube.com/@leecodetamil" target="_blank" class="btn-secondary hero-btn enhanced-btn">
+            <div class="btn-content">
+              <i class="fab fa-youtube"></i>
+              <span>Watch Tutorials</span>
+            </div>
+            <div class="btn-wave"></div>
+          </a>
+        </div>
+      </div>
+
+      <!-- Enhanced Hero Visual Section -->
+      <div class="hero-visual" appAnimateOnScroll="fadeInRight" [animationDelay]="400">
+        <div class="profile-container">
+          <div class="profile-ring">
+            <div class="profile-avatar">
+              <i class="fas fa-code"></i>
+            </div>
+            <!-- Added skill orbits -->
+            <div class="skill-orbit" *ngFor="let skill of ['JS', 'NG', 'JV']; let i = index" 
+                 [style.--orbit-delay.s]="i * 1.5"
+                 [style.--orbit-angle.deg]="i * 120">
+              {{ skill }}
+            </div>
+          </div>
+          <div class="floating-icons">
+            <div class="icon-orbit orbit-1">
+              <i class="fab fa-angular"></i>
+            </div>
+            <div class="icon-orbit orbit-2">
+              <i class="fab fa-java"></i>
+            </div>
+            <div class="icon-orbit orbit-3">
+              <i class="fas fa-database"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Enhanced Scroll Indicator -->
+    <div class="scroll-indicator" appAnimateOnScroll="fadeInUp" [animationDelay]="1200">
+      <div class="mouse">
+        <div class="wheel"></div>
+      </div>
+      <span class="scroll-text">Scroll to explore</span>
+      <div class="scroll-arrow">
+        <i class="fas fa-chevron-down"></i>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Section with Card Animations -->
+  <section id="skills" class="skills-section">
+    <div class="container">
+      <h2 class="section-title" appAnimateOnScroll="fadeInUp">
+        <span class="title-number">01.</span>
+        What I Do
+      </h2>
+
+      <div class="skills-grid">
+        <div 
+          *ngFor="let skill of skillsData; let i = index" 
+          class="skill-card"
+          appAnimateOnScroll="fadeInUp"
+          [animationDelay]="i * 200"
+          [style.--accent-color]="skill.color">
+          
+          <div class="card-header">
+            <div class="card-icon">
+              <i [class]="skill.icon"></i>
+            </div>
+            <h3>{{ skill.title }}</h3>
+          </div>
+
+          <div class="card-content">
+            <div class="skill-tags">
+              <span 
+                *ngFor="let tech of skill.skills; let j = index" 
+                class="skill-tag"
+                [style.animation-delay.ms]="j * 100">
+                {{ tech }}
+              </span>
+            </div>
+          </div>
+
+          <div class="card-glow"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Stats Section with Counter Animations -->
+  <section class="stats-section">
+    <div class="container">
+      <div class="stats-grid">
+        <div class="stat-item" appAnimateOnScroll="scaleIn" [animationDelay]="0">
+          <div class="stat-number">5+</div>
+          <div class="stat-label">Years Experience</div>
+        </div>
+        <div class="stat-item" appAnimateOnScroll="scaleIn" [animationDelay]="200">
+          <div class="stat-number">100+</div>
+          <div class="stat-label">Tutorials Created</div>
+        </div>
+        <div class="stat-item" appAnimateOnScroll="scaleIn" [animationDelay]="400">
+          <div class="stat-number">10K+</div>
+          <div class="stat-label">Students Helped</div>
+        </div>
+        <div class="stat-item" appAnimateOnScroll="scaleIn" [animationDelay]="600">
+          <div class="stat-number">50+</div>
+          <div class="stat-label">Articles Written</div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
