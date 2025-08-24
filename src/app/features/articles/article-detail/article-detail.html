@@ -1,1 +1,367 @@
-<p>article-detail works!</p>
+<div class="article-page" *ngIf="article">
+      <!-- Reading Progress Bar -->
+      <div class="reading-progress">
+        <div class="progress-bar" [style.width.%]="readingProgress"></div>
+      </div>
+
+      <!-- Article Header -->
+      <header class="article-header">
+        <div class="container">
+          <!-- Breadcrumb -->
+          <nav class="breadcrumb">
+            <a routerLink="/articles">Articles</a>
+            <i class="fas fa-chevron-right"></i>
+            <span>{{ article.category }}</span>
+          </nav>
+
+          <!-- Article Meta -->
+          <div class="article-meta">
+            <div class="meta-left">
+              <span class="category" [style.color]="getCategoryColor(article.category)">
+                <i [class]="getCategoryIcon(article.category)"></i>
+                {{ article.category }}
+              </span>
+              <span class="difficulty-badge" [attr.data-difficulty]="article.difficulty">
+                {{ article.difficulty }}
+              </span>
+            </div>
+            <div class="meta-right">
+              <time class="publish-date">{{ article.publishDate | date:'MMMM dd, yyyy' }}</time>
+              <span class="reading-time">
+                <i class="fas fa-clock"></i>
+                {{ article.readingTime }} min read
+              </span>
+            </div>
+          </div>
+
+          <!-- Article Title -->
+          <h1 class="article-title">{{ article.title }}</h1>
+
+          <!-- Article Stats -->
+          <div class="article-stats">
+            <div class="stats-left">
+              <span class="stat">
+                <i class="fas fa-eye"></i>
+                {{ formatNumber(article.views) }} views
+              </span>
+              <span class="stat">
+                <i class="fas fa-heart" [class.liked]="isLiked" (click)="toggleLike()"></i>
+                {{ formatNumber(article.likes) }}
+              </span>
+              <span class="stat">
+                <i class="fas fa-comment"></i>
+                {{ article.comments }} comments
+              </span>
+            </div>
+            <div class="stats-right">
+              <button class="action-btn bookmark-btn" [class.active]="isBookmarked" (click)="toggleBookmark()">
+                <i class="fas fa-bookmark"></i>
+                {{ isBookmarked ? 'Saved' : 'Save' }}
+              </button>
+              <button class="action-btn share-btn" (click)="openShareMenu()">
+                <i class="fas fa-share-alt"></i>
+                Share
+              </button>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <!-- Article Content Layout -->
+      <div class="article-layout">
+        <div class="container">
+          <div class="content-grid">
+            
+            <!-- Table of Contents (Desktop) -->
+            <aside class="toc-sidebar" [class.sticky]="tocSticky">
+              <div class="toc-container">
+                <h3 class="toc-title">
+                  <i class="fas fa-list"></i>
+                  Table of Contents
+                </h3>
+                <nav class="toc-nav">
+                  <ul class="toc-list">
+                    <li 
+                      *ngFor="let item of tableOfContents; trackBy: trackByTocItem"
+                      class="toc-item"
+                      [class.active]="activeSection === item.id"
+                      [class.level-1]="item.level === 1"
+                      [class.level-2]="item.level === 2"
+                      [class.level-3]="item.level === 3">
+                      <a 
+                        [href]="'#' + item.id" 
+                        (click)="scrollToSection(item.id, $event)"
+                        class="toc-link">
+                        {{ item.text }}
+                      </a>
+                    </li>
+                  </ul>
+                </nav>
+              </div>
+            </aside>
+
+            <!-- Main Content -->
+            <main class="article-content" #articleContent>
+              <!-- Article Image -->
+              <div class="article-image">
+                <img [src]="article.imageUrl" [alt]="article.title">
+                <div class="image-overlay">
+                  <div class="author-info">
+                    <img src="https://via.placeholder.com/40x40" alt="Lee Code" class="author-avatar">
+                    <div class="author-details">
+                      <span class="author-name">{{ article.author }}</span>
+                      <span class="author-title">Software Engineer & Educator</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Article Body -->
+              <div class="article-body" [innerHTML]="getFormattedContent()"></div>
+
+              <!-- Interactive Code Examples -->
+              <div *ngIf="codeExamples.length > 0" class="code-examples-section">
+                <h3>
+                  <i class="fas fa-code"></i>
+                  Interactive Examples
+                </h3>
+                <div class="code-examples">
+                  <div 
+                    *ngFor="let example of codeExamples; let i = index"
+                    class="code-example">
+                    <div class="example-header">
+                      <h4>{{ example.title }}</h4>
+                      <button class="run-code-btn" (click)="runCode(i)">
+                        <i class="fas fa-play"></i>
+                        Run Code
+                      </button>
+                    </div>
+                    <pre><code [innerHTML]="highlightCode(example.code, example.language)"></code></pre>
+                    <div *ngIf="example.output" class="code-output">
+                      <h5>Output:</h5>
+                      <pre class="output-text">{{ example.output }}</pre>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Article Tags -->
+              <div class="article-tags">
+                <h4>Tags</h4>
+                <div class="tags-list">
+                  <span *ngFor="let tag of article.tags" class="tag">
+                    #{{ tag }}
+                  </span>
+                </div>
+              </div>
+
+              <!-- Author Bio -->
+              <div class="author-bio">
+                <div class="bio-header">
+                  <img src="https://via.placeholder.com/80x80" alt="Lee Code" class="author-avatar-large">
+                  <div class="bio-info">
+                    <h3>{{ article.author }}</h3>
+                    <p class="bio-title">Software Engineer & Code Educator</p>
+                    <div class="author-stats">
+                      <span>500+ Articles</span>
+                      <span>100K+ Students</span>
+                      <span>5+ Years Teaching</span>
+                    </div>
+                  </div>
+                </div>
+                <p class="bio-description">
+                  Passionate software engineer specializing in algorithms, system design, and full-stack development. 
+                  Creator of @leecodetamil YouTube channel with educational programming content.
+                </p>
+                <div class="bio-actions">
+                  <button class="follow-btn" [class.following]="isFollowing" (click)="toggleFollow()">
+                    <i class="fas" [class.fa-user-plus]="!isFollowing" [class.fa-user-check]="isFollowing"></i>
+                    {{ isFollowing ? 'Following' : 'Follow' }}
+                  </button>
+                  <a href="https://youtube.com/@leecodetamil" target="_blank" class="youtube-btn">
+                    <i class="fab fa-youtube"></i>
+                    YouTube Channel
+                  </a>
+                </div>
+              </div>
+
+              <!-- Related Articles -->
+              <div class="related-articles" *ngIf="relatedArticles.length > 0">
+                <h3>
+                  <i class="fas fa-lightbulb"></i>
+                  You might also like
+                </h3>
+                <div class="related-grid">
+                  <article 
+                    *ngFor="let related of relatedArticles"
+                    class="related-card"
+                    [routerLink]="['/articles', related.slug]">
+                    <img [src]="related.imageUrl" [alt]="related.title">
+                    <div class="related-content">
+                      <span class="related-category">{{ related.category }}</span>
+                      <h4>{{ related.title }}</h4>
+                      <div class="related-meta">
+                        <span class="reading-time">{{ related.readingTime }} min read</span>
+                        <span class="views">{{ formatNumber(related.views) }} views</span>
+                      </div>
+                    </div>
+                  </article>
+                </div>
+              </div>
+            </main>
+
+            <!-- Floating Actions (Mobile) -->
+            <div class="floating-actions">
+              <button class="floating-btn like-btn" [class.active]="isLiked" (click)="toggleLike()">
+                <i class="fas fa-heart"></i>
+                <span class="count">{{ formatNumber(article.likes) }}</span>
+              </button>
+              <button class="floating-btn comment-btn" (click)="scrollToComments()">
+                <i class="fas fa-comment"></i>
+                <span class="count">{{ article.comments }}</span>
+              </button>
+              <button class="floating-btn share-btn" (click)="openShareMenu()">
+                <i class="fas fa-share-alt"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Comments Section -->
+      <section class="comments-section" #commentsSection>
+        <div class="container">
+          <div class="comments-container">
+            <div class="comments-header">
+              <h3>
+                <i class="fas fa-comments"></i>
+                Comments ({{ comments.length }})
+              </h3>
+              <div class="comments-sort">
+                <select [(ngModel)]="commentsSortBy" (change)="sortComments()">
+                  <option value="newest">Newest First</option>
+                  <option value="oldest">Oldest First</option>
+                  <option value="popular">Most Popular</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Add Comment -->
+            <div class="add-comment">
+              <div class="comment-avatar">
+                <img src="https://via.placeholder.com/40x40" alt="You">
+              </div>
+              <div class="comment-input">
+                <textarea 
+                  [(ngModel)]="newComment" 
+                  placeholder="Share your thoughts on this article..."
+                  rows="3"
+                  class="comment-textarea"></textarea>
+                <div class="comment-actions">
+                  <button 
+                    class="submit-comment-btn" 
+                    [disabled]="!newComment.trim()"
+                    (click)="submitComment()">
+                    <i class="fas fa-paper-plane"></i>
+                    Post Comment
+                  </button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Comments List -->
+            <div class="comments-list">
+              <div 
+                *ngFor="let comment of displayedComments; trackBy: trackByComment"
+                class="comment">
+                <div class="comment-avatar">
+                  <img [src]="comment.avatar || 'https://via.placeholder.com/40x40'" [alt]="comment.author">
+                </div>
+                <div class="comment-content">
+                  <div class="comment-header">
+                    <span class="comment-author">{{ comment.author }}</span>
+                    <time class="comment-time">{{ getTimeAgo(comment.timestamp) }}</time>
+                  </div>
+                  <p class="comment-text">{{ comment.content }}</p>
+                  <div class="comment-actions">
+                    <button class="comment-action like-action">
+                      <i class="fas fa-heart"></i>
+                      {{ comment.likes }}
+                    </button>
+                    <button class="comment-action reply-action">
+                      <i class="fas fa-reply"></i>
+                      Reply
+                    </button>
+                    <button class="comment-action share-action">
+                      <i class="fas fa-share"></i>
+                      Share
+                    </button>
+                  </div>
+
+                  <!-- Replies -->
+                  <div *ngIf="comment.replies && comment.replies.length > 0" class="comment-replies">
+                    <div 
+                      *ngFor="let reply of comment.replies"
+                      class="comment reply">
+                      <div class="comment-avatar">
+                        <img [src]="reply.avatar || 'https://via.placeholder.com/32x32'" [alt]="reply.author">
+                      </div>
+                      <div class="comment-content">
+                        <div class="comment-header">
+                          <span class="comment-author">{{ reply.author }}</span>
+                          <time class="comment-time">{{ getTimeAgo(reply.timestamp) }}</time>
+                        </div>
+                        <p class="comment-text">{{ reply.content }}</p>
+                        <div class="comment-actions">
+                          <button class="comment-action like-action">
+                            <i class="fas fa-heart"></i>
+                            {{ reply.likes }}
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Load More Comments -->
+            <div *ngIf="hasMoreComments()" class="load-more-comments">
+              <button class="load-more-btn" (click)="loadMoreComments()">
+                Load More Comments
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Share Modal -->
+      <div *ngIf="showShareMenu" class="share-modal-overlay" (click)="closeShareMenu()">
+        <div class="share-modal" (click)="$event.stopPropagation()">
+          <div class="share-header">
+            <h3>Share this article</h3>
+            <button class="close-btn" (click)="closeShareMenu()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          <div class="share-options">
+            <button class="share-option twitter" (click)="shareOnTwitter()">
+              <i class="fab fa-twitter"></i>
+              Twitter
+            </button>
+            <button class="share-option linkedin" (click)="shareOnLinkedIn()">
+              <i class="fab fa-linkedin"></i>
+              LinkedIn
+            </button>
+            <button class="share-option facebook" (click)="shareOnFacebook()">
+              <i class="fab fa-facebook"></i>
+              Facebook
+            </button>
+            <button class="share-option copy" (click)="copyLink()">
+              <i class="fas fa-link"></i>
+              Copy Link
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>

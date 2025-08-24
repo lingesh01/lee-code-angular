@@ -1,1 +1,345 @@
-<p>about works!</p>
+ <div class="about-page">
+      
+      <!-- Hero Section -->
+      <section class="about-hero">
+        <div class="hero-background">
+          <div class="floating-elements">
+            <div class="element element-1"></div>
+            <div class="element element-2"></div>
+            <div class="element element-3"></div>
+          </div>
+        </div>
+        
+        <div class="container">
+          <div class="hero-content">
+            <div class="hero-text">
+              <div class="hero-badge">
+                <i class="fas fa-user-graduate"></i>
+                Get to know me
+              </div>
+              <h1 class="hero-title">
+                Hi, I'm <span class="highlight">Lee Code</span>
+              </h1>
+              <p class="hero-subtitle">
+                Software Engineer, Algorithm Expert & Code Educator
+              </p>
+              <div class="hero-stats">
+                <div class="stat">
+                  <span class="stat-number">5+</span>
+                  <span class="stat-label">Years Coding</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-number">100+</span>
+                  <span class="stat-label">Tutorials Created</span>
+                </div>
+                <div class="stat">
+                  <span class="stat-number">10K+</span>
+                  <span class="stat-label">Students Helped</span>
+                </div>
+              </div>
+            </div>
+            
+            <div class="hero-visual">
+              <div class="profile-card">
+                <div class="profile-image">
+                  <img src="https://via.placeholder.com/300x300" alt="Lee Code">
+                  <div class="status-indicator">
+                    <div class="status-dot"></div>
+                    <span>Available for mentoring</span>
+                  </div>
+                </div>
+                <div class="profile-info">
+                  <h3>Lee Code</h3>
+                  <p>Chennai, India 🇮🇳</p>
+                  <div class="quick-contact">
+                    <a href="mailto:hello@leecode.dev" class="contact-btn">
+                      <i class="fas fa-envelope"></i>
+                      Get in touch
+                    </a>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- My Story Section -->
+      <section class="my-story">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-book-open"></i>
+              My Story
+            </h2>
+            <p class="section-subtitle">
+              The journey from curious learner to passionate educator
+            </p>
+          </div>
+          
+          <div class="story-content">
+            <div class="story-grid">
+              <div class="story-text">
+                <div class="story-chapter">
+                  <h3 class="chapter-title">The Beginning</h3>
+                  <p>
+                    My coding journey began during my college years when I first encountered a "Hello, World!" 
+                    program in C++. What started as curiosity quickly turned into obsession. I spent countless 
+                    hours solving problems, debugging code, and falling in love with the logical beauty of programming.
+                  </p>
+                  <p>
+                    But it wasn't just about writing code – I discovered my true passion lay in breaking down 
+                    complex algorithms and making them understandable for others. This realization would shape 
+                    my entire career path.
+                  </p>
+                </div>
+
+                <div class="story-chapter">
+                  <h3 class="chapter-title">The Turning Point</h3>
+                  <p>
+                    During my first internship, I struggled with data structures and algorithms. The concepts 
+                    seemed abstract and disconnected from real-world applications. I wished someone could explain 
+                    these topics in simple Tamil, relating them to everyday examples.
+                  </p>
+                  <p>
+                    That's when I decided to become that "someone" for others. I started creating content that 
+                    I wished existed when I was learning – clear, practical explanations with real-world applications.
+                  </p>
+                </div>
+
+                <div class="story-chapter">
+                  <h3 class="chapter-title">Building the Community</h3>
+                  <p>
+                    In 2020, I launched @leecodetamil on YouTube with a simple mission: make programming concepts 
+                    accessible to Tamil-speaking developers. What started as weekend hobby videos grew into a 
+                    thriving community of learners and professionals.
+                  </p>
+                  <p>
+                    Today, I'm proud to have helped thousands of developers land their dream jobs, ace technical 
+                    interviews, and build amazing applications. But the journey is just beginning!
+                  </p>
+                </div>
+              </div>
+
+              <div class="story-visual">
+                <div class="journey-timeline">
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h4>2018</h4>
+                      <p>Started Learning Programming</p>
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h4>2020</h4>
+                      <p>First Software Engineering Job</p>
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h4>2021</h4>
+                      <p>Launched @leecodetamil</p>
+                    </div>
+                  </div>
+                  <div class="timeline-item">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h4>2024</h4>
+                      <p>10K+ Students & Counting</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Skills & Expertise Section -->
+      <section class="skills-expertise">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-cogs"></i>
+              Skills & Expertise
+            </h2>
+            <p class="section-subtitle">
+              Technologies I work with and teach
+            </p>
+          </div>
+
+          <div class="skills-grid">
+            <div 
+              *ngFor="let skill of skills; let i = index"
+              class="skill-item"
+              [style.animation-delay.ms]="i * 100">
+              <div class="skill-header">
+                <div class="skill-info">
+                  <h4>{{ skill.name }}</h4>
+                  <span class="skill-experience">{{ skill.years }} years</span>
+                </div>
+                <div class="skill-level">{{ skill.level }}%</div>
+              </div>
+              <div class="skill-bar">
+                <div 
+                  class="skill-progress" 
+                  [style.width.%]="skill.level"
+                  [style.animation-delay.ms]="i * 150">
+                </div>
+              </div>
+              <div class="skill-category">{{ skill.category }}</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Values & Philosophy Section -->
+      <section class="values-philosophy">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-heart"></i>
+              My Values & Teaching Philosophy
+            </h2>
+          </div>
+
+          <div class="values-grid">
+            <div class="value-card" *ngFor="let value of values">
+              <div class="value-icon">
+                <i [class]="value.icon"></i>
+              </div>
+              <h3>{{ value.title }}</h3>
+              <p>{{ value.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Fun Facts Section -->
+      <section class="fun-facts">
+        <div class="container">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-smile"></i>
+              Fun Facts About Me
+            </h2>
+            <p class="section-subtitle">
+              Beyond the code...
+            </p>
+          </div>
+
+          <div class="facts-grid">
+            <div class="fact-card" *ngFor="let fact of funFacts">
+              <div class="fact-icon">{{ fact.icon }}</div>
+              <h4>{{ fact.title }}</h4>
+              <p>{{ fact.description }}</p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Connect Section -->
+      <section class="connect-section">
+        <div class="container">
+          <div class="connect-content">
+            <div class="connect-text">
+              <h2>Let's Connect & Build Something Amazing</h2>
+              <p>
+                I'm always excited to connect with fellow developers, students, and anyone passionate about 
+                technology. Whether you have questions about algorithms, need career advice, or want to 
+                collaborate on a project – I'd love to hear from you!
+              </p>
+              
+              <div class="connect-options">
+                <div class="connect-option">
+                  <i class="fas fa-comments"></i>
+                  <div>
+                    <h4>General Questions</h4>
+                    <p>Drop me a message for any programming or career questions</p>
+                  </div>
+                </div>
+                <div class="connect-option">
+                  <i class="fas fa-graduation-cap"></i>
+                  <div>
+                    <h4>Mentorship</h4>
+                    <p>Limited mentorship slots available for serious learners</p>
+                  </div>
+                </div>
+                <div class="connect-option">
+                  <i class="fas fa-handshake"></i>
+                  <div>
+                    <h4>Collaboration</h4>
+                    <p>Open to interesting projects and content collaborations</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <h3>Find me on</h3>
+              <div class="social-grid">
+                <a 
+                  *ngFor="let social of socialLinks"
+                  [href]="social.url"
+                  target="_blank"
+                  class="social-link"
+                  [style.--social-color]="social.color">
+                  <div class="social-icon">
+                    <i [class]="social.icon"></i>
+                  </div>
+                  <div class="social-info">
+                    <h4>{{ social.name }}</h4>
+                    <p *ngIf="social.followers">{{ social.followers }} followers</p>
+                  </div>
+                  <div class="social-arrow">
+                    <i class="fas fa-arrow-right"></i>
+                  </div>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Newsletter Section -->
+      <section class="newsletter-section">
+        <div class="container">
+          <div class="newsletter-card">
+            <div class="newsletter-content">
+              <div class="newsletter-icon">
+                <i class="fas fa-paper-plane"></i>
+              </div>
+              <h3>Stay Updated with My Journey</h3>
+              <p>
+                Get notified about new tutorials, articles, and exclusive coding tips. 
+                Join 1000+ developers who are already part of the community!
+              </p>
+              <div class="newsletter-form">
+                <div class="form-group">
+                  <input 
+                    type="email" 
+                    placeholder="Enter your email"
+                    [(ngModel)]="newsletterEmail"
+                    class="email-input">
+                  <button 
+                    (click)="subscribeNewsletter()" 
+                    class="subscribe-btn"
+                    [disabled]="!newsletterEmail">
+                    <i class="fas fa-rocket"></i>
+                    Subscribe
+                  </button>
+                </div>
+                <p class="newsletter-note">
+                  <i class="fas fa-shield-alt"></i>
+                  No spam, unsubscribe anytime. Your email is safe with me.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </div>
