@@ -2,6 +2,7 @@ import { Component, OnInit, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { ComingSoon } from '../../../shared/components/coming-soon/coming-soon';
 
 interface Article {
   id: string;
@@ -33,8 +34,9 @@ interface Category {
 
 @Component({
   selector: 'app-article-list',
-  imports: [CommonModule, RouterModule, FormsModule],
-  templateUrl: './article-list.html',
+  imports: [CommonModule, RouterModule, FormsModule, ComingSoon],
+  // templateUrl: './article-list.html',
+  template:  `<app-coming-soon pageType="articles"></app-coming-soon>`,
   styleUrl: './article-list.scss'
 })
 export class ArticleList implements OnInit {

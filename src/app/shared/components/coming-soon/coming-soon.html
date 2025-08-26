@@ -1,0 +1,125 @@
+<div class="coming-soon-container" [class.loaded]="isLoaded">
+  
+  <!-- Background animations matching home page -->
+  <div class="coming-soon-background">
+    <div class="floating-shapes">
+      <div class="shape shape-1"></div>
+      <div class="shape shape-2"></div>
+      <div class="shape shape-3"></div>
+      <div class="shape shape-4"></div>
+    </div>
+    <div class="grid-overlay"></div>
+    <div class="particles">
+      <div class="particle" *ngFor="let i of [].constructor(15); let idx = index" 
+           [style.animation-delay.s]="idx * 0.2"></div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="coming-soon-content">
+    
+    <!-- Hero Section -->
+    <section class="hero">
+      <div class="container">
+        <div class="hero-content">
+          
+          <!-- Status Badge -->
+          <div class="status-badge" appAnimateOnScroll="fadeInUp">
+            <div class="pulse-dot"></div>
+            <span>Coming Soon</span>
+          </div>
+          
+          <!-- Icon -->
+          <div class="hero-icon" appAnimateOnScroll="scaleIn" [animationDelay]="200">
+            <i [class]="pageInfo.icon"></i>
+          </div>
+          
+          <!-- Title -->
+          <h1 class="hero-title" appAnimateOnScroll="fadeInUp" [animationDelay]="400">
+            {{ pageInfo.title }}
+          </h1>
+          
+          <!-- Subtitle with rotating features -->
+          <div class="hero-subtitle" appAnimateOnScroll="fadeInUp" [animationDelay]="600">
+            <span class="static-text">{{ pageInfo.subtitle }}</span>
+            <div class="rotating-features">
+              <span 
+                *ngFor="let feature of pageInfo.features; let i = index"
+                [class.active]="i === currentSkillIndex"
+                class="feature-text">
+                {{ feature }}
+              </span>
+            </div>
+          </div>
+          
+          <!-- Progress Bar -->
+          <div class="progress-section" appAnimateOnScroll="fadeInUp" [animationDelay]="800">
+            <div class="progress-info">
+              <span class="progress-label">Development Progress</span>
+              <span class="progress-percentage">{{ pageInfo.progress }}%</span>
+            </div>
+            <div class="progress-bar">
+              <div class="progress-fill" [style.width.%]="pageInfo.progress">
+                <div class="progress-glow"></div>
+              </div>
+            </div>
+            <div class="launch-info">
+              <span>Estimated Launch: {{ pageInfo.launchDate }}</span>
+            </div>
+          </div>
+          
+          <!-- Email Notification -->
+          <div class="notification-section" appAnimateOnScroll="fadeInUp" [animationDelay]="1000">
+            <h3>Get Notified When Ready</h3>
+            <div class="notification-form">
+              <input 
+                type="email" 
+                placeholder="Enter your email"
+                [(ngModel)]="notifyEmail"
+                class="email-input"
+                [class.valid]="notifyEmail && isValidEmail(notifyEmail)">
+              <button 
+                (click)="subscribeNotification()" 
+                class="notify-btn btn-primary"
+                [disabled]="!notifyEmail || !isValidEmail(notifyEmail)">
+                <i class="fas fa-bell"></i>
+                Notify Me
+              </button>
+            </div>
+          </div>
+          
+          <!-- Action Buttons -->
+          <div class="hero-actions" appAnimateOnScroll="fadeInUp" [animationDelay]="1200">
+            <button (click)="goBack()" class="btn-secondary hero-btn">
+              <i class="fas fa-arrow-left"></i>
+              Go Back
+            </button>
+            <button (click)="goToHome()" class="btn-primary hero-btn">
+              <i class="fas fa-home"></i>
+              Back to Home
+            </button>
+          </div>
+          
+          <!-- Social Share -->
+          <div class="social-section" appAnimateOnScroll="fadeInUp" [animationDelay]="1400">
+            <p class="social-text">Share the excitement:</p>
+            <div class="social-buttons">
+              <button (click)="shareOnTwitter()" class="social-btn twitter">
+                <i class="fab fa-twitter"></i>
+              </button>
+              <a href="https://youtube.com/@leecodetamil" target="_blank" class="social-btn youtube">
+                <i class="fab fa-youtube"></i>
+              </a>
+              <a routerLink="/about" class="social-btn about">
+                <i class="fas fa-user"></i>
+              </a>
+            </div>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+    
+  </div>
+  
+</div>

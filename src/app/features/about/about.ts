@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
+import { AnimateOnScroll } from '../../shared/directives/animate-on-scroll';
 
 interface TimelineEvent {
   year: string;
@@ -30,29 +31,34 @@ interface SocialLink {
 
 @Component({
   selector: 'app-about',
-  imports: [CommonModule, RouterModule, FormsModule],
+  imports: [CommonModule, RouterModule, FormsModule, AnimateOnScroll],
   templateUrl: './about.html',
   styleUrl: './about.scss'
 })
 export class About {
 
-   @ViewChild('timelineRef', { static: false }) timelineRef!: ElementRef;
+    @ViewChild('timelineRef', { static: false }) timelineRef!: ElementRef;
 
   newsletterEmail = '';
 
+  profileImage = 'assets/images/lingesh-profile.jpg';
+  
+  // Following state for the author bio section
+  isFollowing = false;
+
   skills: Skill[] = [
-    { name: 'JavaScript/TypeScript', level: 95, category: 'Programming Languages', years: 5 },
-    { name: 'Java', level: 90, category: 'Programming Languages', years: 4 },
-    { name: 'Python', level: 85, category: 'Programming Languages', years: 3 },
-    { name: 'Angular', level: 92, category: 'Frontend Frameworks', years: 4 },
-    { name: 'React', level: 88, category: 'Frontend Frameworks', years: 3 },
-    { name: 'Spring Boot', level: 89, category: 'Backend Frameworks', years: 4 },
-    { name: 'Node.js', level: 87, category: 'Backend Technologies', years: 3 },
-    { name: 'PostgreSQL', level: 85, category: 'Databases', years: 4 },
-    { name: 'MongoDB', level: 82, category: 'Databases', years: 3 },
-    { name: 'AWS', level: 78, category: 'Cloud Services', years: 2 },
-    { name: 'Docker', level: 80, category: 'DevOps Tools', years: 2 },
-    { name: 'Data Structures', level: 95, category: 'Computer Science', years: 5 }
+    { name: 'JavaScript/TypeScript', level: 95, category: 'Programming Languages', years: 3 },
+    { name: 'Java', level: 100, category: 'Programming Languages', years: 3 },
+    { name: 'Python', level: 100, category: 'Programming Languages', years: 3 },
+    { name: 'Angular', level: 90, category: 'Frontend Frameworks', years:  2},
+    { name: 'React', level: 70, category: 'Frontend Frameworks', years: 4 },
+    { name: 'Spring Boot', level: 95 , category: 'Backend Frameworks', years: 3 },
+    { name: 'Node.js', level: 60, category: 'Backend Technologies', years: 3 },
+    { name: 'PostgreSQL', level: 100, category: 'Databases', years: 3 },
+    { name: 'MongoDB', level: 60, category: 'Databases', years: 3 },
+    { name: 'AWS', level: 50, category: 'Cloud Services', years: 1 },
+    { name: 'Docker', level: 50, category: 'DevOps Tools', years: 1 },
+    { name: 'Data Structures', level: 95, category: 'Computer Science', years: 4 }
   ];
 
   values = [
@@ -117,42 +123,42 @@ export class About {
       icon: 'fab fa-youtube',
       url: 'https://youtube.com/@leecodetamil',
       color: '#ff0000',
-      followers: '10K+'
+      followers: '1K+'
     },
     {
       name: 'GitHub',
       icon: 'fab fa-github',
-      url: 'https://github.com/leecode',
+      url: 'https://#',
       color: '#333333',
-      followers: '2K+'
+      // followers: 'Exlore the Code'
     },
     {
       name: 'LinkedIn',
       icon: 'fab fa-linkedin',
-      url: 'https://linkedin.com/in/leecode',
+      url: 'https://www.linkedin.com/in/lingaraja-s/',
       color: '#0077b5',
-      followers: '5K+'
+      // followers: '5K+'
     },
-    {
-      name: 'Twitter',
-      icon: 'fab fa-twitter',
-      url: 'https://twitter.com/leecodetamil',
-      color: '#1da1f2',
-      followers: '3K+'
-    },
+    // {
+    //   name: 'Twitter',
+    //   icon: 'fab fa-twitter',
+    //   url: 'https://twitter.com/leecodetamil',
+    //   color: '#1da1f2',
+    //   followers: '3K+'
+    // },
     {
       name: 'Instagram',
       icon: 'fab fa-instagram',
       url: 'https://instagram.com/leecodetamil',
       color: '#e4405f',
-      followers: '1K+'
+      // followers: 'Follow Me!'
     },
     {
       name: 'Discord',
       icon: 'fab fa-discord',
       url: 'https://discord.gg/leecode',
       color: '#7289da',
-      followers: 'Join Community'
+      // followers: 'Join Community'
     }
   ];
 
@@ -170,12 +176,34 @@ export class About {
     }, 1000);
   }
 
+  // Toggle follow state
+  toggleFollow(): void {
+    this.isFollowing = !this.isFollowing;
+    
+    // Optional: Add API call here to save follow state
+    // this.userService.toggleFollow('leecode').subscribe(...)
+    
+    // Optional: Show notification
+    if (this.isFollowing) {
+      console.log('Thanks for following! You\'ll get updates on new content.');
+    } else {
+      console.log('You\'ve unfollowed. You can follow again anytime!');
+    }
+  }
+
   subscribeNewsletter(): void {
     if (this.newsletterEmail && this.isValidEmail(this.newsletterEmail)) {
       // TODO: Implement newsletter subscription
       console.log('Newsletter subscription:', this.newsletterEmail);
-      // Show success message
+      
+      // Show success message (you can implement toast notification here)
+      alert('Thanks for subscribing! You\'ll receive our latest content in your inbox.');
+      
+      // Clear the input
       this.newsletterEmail = '';
+    } else {
+      // Show error message for invalid email
+      alert('Please enter a valid email address.');
     }
   }
 

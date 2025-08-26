@@ -1,0 +1,202 @@
+ <div class="admin-dashboard">
+      <!-- Header -->
+      <div class="dashboard-header">
+        <div class="header-content">
+          <div class="welcome-section">
+            <h1 class="dashboard-title">
+              <i class="fas fa-tachometer-alt"></i>
+              Admin Dashboard
+            </h1>
+            <p class="dashboard-subtitle">
+              Welcome back, {{ currentUser?.name }}! Here's what's happening with your content.
+            </p>
+          </div>
+          
+          <div class="quick-actions">
+            <button class="action-btn primary" routerLink="/admin/articles/new">
+              <i class="fas fa-plus"></i>
+              New Article
+            </button>
+            <button class="action-btn secondary" routerLink="/admin/articles">
+              <i class="fas fa-list"></i>
+              Manage Articles
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Stats Grid -->
+      <div class="stats-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-icon articles">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{ stats.totalArticles }}</div>
+              <div class="stat-label">Total Articles</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                +3 this month
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon views">
+              <i class="fas fa-eye"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{ formatNumber(stats.totalViews) }}</div>
+              <div class="stat-label">Total Views</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                +12% this month
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon likes">
+              <i class="fas fa-heart"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{ formatNumber(stats.totalLikes) }}</div>
+              <div class="stat-label">Total Likes</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                +8% this month
+              </div>
+            </div>
+          </div>
+
+          <div class="stat-card">
+            <div class="stat-icon subscribers">
+              <i class="fas fa-users"></i>
+            </div>
+            <div class="stat-content">
+              <div class="stat-number">{{ formatNumber(stats.subscribers) }}</div>
+              <div class="stat-label">Subscribers</div>
+              <div class="stat-change positive">
+                <i class="fas fa-arrow-up"></i>
+                +156 this month
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Main Content -->
+      <div class="dashboard-main">
+        <!-- Recent Activity -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-clock"></i>
+              Recent Activity
+            </h2>
+            <a routerLink="/admin/analytics" class="view-all-link">View All</a>
+          </div>
+          
+          <div class="activity-list">
+            <div 
+              *ngFor="let activity of recentActivities" 
+              class="activity-item">
+              <div class="activity-icon" [style.background-color]="activity.color">
+                <i [class]="activity.icon"></i>
+              </div>
+              <div class="activity-content">
+                <h4 class="activity-title">{{ activity.title }}</h4>
+                <p class="activity-description">{{ activity.description }}</p>
+                <span class="activity-time">{{ getTimeAgo(activity.timestamp) }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Stats -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-chart-line"></i>
+              Content Overview
+            </h2>
+          </div>
+          
+          <div class="content-overview">
+            <div class="overview-item">
+              <div class="overview-label">Published Articles</div>
+              <div class="overview-value">{{ stats.publishedArticles }}</div>
+              <div class="overview-bar">
+                <div class="bar-fill published" 
+                     [style.width.%]="(stats.publishedArticles / stats.totalArticles) * 100">
+                </div>
+              </div>
+            </div>
+            
+            <div class="overview-item">
+              <div class="overview-label">Draft Articles</div>
+              <div class="overview-value">{{ stats.draftArticles }}</div>
+              <div class="overview-bar">
+                <div class="bar-fill draft" 
+                     [style.width.%]="(stats.draftArticles / stats.totalArticles) * 100">
+                </div>
+              </div>
+            </div>
+
+            <div class="overview-item">
+              <div class="overview-label">Monthly Visitors</div>
+              <div class="overview-value">{{ formatNumber(stats.monthlyVisitors) }}</div>
+              <div class="overview-bar">
+                <div class="bar-fill visitors" style="width: 85%"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="dashboard-section">
+          <div class="section-header">
+            <h2 class="section-title">
+              <i class="fas fa-bolt"></i>
+              Quick Actions
+            </h2>
+          </div>
+          
+          <div class="quick-actions-grid">
+            <a routerLink="/admin/articles/new" class="action-card">
+              <div class="action-icon">
+                <i class="fas fa-plus"></i>
+              </div>
+              <h3>Create Article</h3>
+              <p>Write and publish a new article</p>
+            </a>
+
+            <a routerLink="/admin/articles" class="action-card">
+              <div class="action-icon">
+                <i class="fas fa-edit"></i>
+              </div>
+              <h3>Manage Articles</h3>
+              <p>Edit, publish or delete articles</p>
+            </a>
+
+            <a routerLink="/admin/analytics" class="action-card">
+              <div class="action-icon">
+                <i class="fas fa-chart-bar"></i>
+              </div>
+              <h3>View Analytics</h3>
+              <p>Check performance metrics</p>
+            </a>
+
+            <a routerLink="/admin/settings" class="action-card">
+              <div class="action-icon">
+                <i class="fas fa-cog"></i>
+              </div>
+              <h3>Settings</h3>
+              <p>Configure site settings</p>
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  

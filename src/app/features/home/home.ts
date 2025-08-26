@@ -20,7 +20,6 @@ interface Skill {
 })
 export class Home {
 
-  
   @ViewChild('heroTitle', { static: false }) heroTitle!: ElementRef;
   @ViewChild('heroSubtitle', { static: false }) heroSubtitle!: ElementRef;
   @ViewChild('rotatingText', { static: false }) rotatingText!: ElementRef;
@@ -30,10 +29,9 @@ export class Home {
   isAnimating = false;
   animationInterval: any;
   
-  // Enhanced skills with more variety
+  // Updated skills array to match your requirement
   skills = [
     'Full-Stack Developer', 
-    'Algorithm Expert', 
     'System Designer', 
     'Code Educator',
     'Problem Solver',
@@ -108,7 +106,7 @@ export class Home {
       if (!this.isAnimating) {
         this.animateToNextSkill();
       }
-    }, 4000); // Longer interval for better effect
+    }, 3500); // Slightly faster rotation for better UX
   }
 
   private async animateToNextSkill(): Promise<void> {
@@ -118,7 +116,7 @@ export class Home {
     const currentElement = document.querySelector('.skill-text.active') as HTMLElement;
     const nextIndex = (this.currentSkillIndex + 1) % this.skills.length;
     
-    // Animate current skill out with random effect
+    // Animate current skill out with enhanced effects
     if (currentElement) {
       await this.animateOut(currentElement);
     }
@@ -133,7 +131,7 @@ export class Home {
         await this.animateIn(nextElement);
       }
       this.isAnimating = false;
-    }, 200);
+    }, 150);
   }
 
   private async animateOut(element: HTMLElement): Promise<void> {
@@ -141,7 +139,7 @@ export class Home {
     const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
     
     return new Promise((resolve) => {
-      element.style.transition = 'all 0.6s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      element.style.transition = 'all 0.5s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
       
       switch (randomAnimation) {
         case 'slideUp':
@@ -166,19 +164,16 @@ export class Home {
       
       element.style.opacity = '0';
       
-      setTimeout(() => resolve(), 600);
+      setTimeout(() => resolve(), 500);
     });
   }
 
   private async animateIn(element: HTMLElement): Promise<void> {
-    const animations = ['typewriter', 'slideIn', 'scaleIn', 'bounceIn', 'flipIn'];
+    const animations = ['slideIn', 'scaleIn', 'bounceIn', 'flipIn', 'fadeIn'];
     const randomAnimation = animations[Math.floor(Math.random() * animations.length)];
     
     return new Promise((resolve) => {
       switch (randomAnimation) {
-        case 'typewriter':
-          this.typewriterEffect(element).then(() => resolve());
-          break;
         case 'slideIn':
           this.slideInEffect(element).then(() => resolve());
           break;
@@ -191,29 +186,12 @@ export class Home {
         case 'flipIn':
           this.flipInEffect(element).then(() => resolve());
           break;
+        case 'fadeIn':
+          this.fadeInEffect(element).then(() => resolve());
+          break;
         default:
           this.slideInEffect(element).then(() => resolve());
       }
-    });
-  }
-
-  private async typewriterEffect(element: HTMLElement): Promise<void> {
-    return new Promise((resolve) => {
-      const text = element.textContent || '';
-      element.textContent = '';
-      element.style.opacity = '1';
-      element.style.transform = 'translateX(-50%) translateY(0)';
-      element.style.transition = 'none';
-      
-      let i = 0;
-      const interval = setInterval(() => {
-        element.textContent += text[i];
-        i++;
-        if (i >= text.length) {
-          clearInterval(interval);
-          resolve();
-        }
-      }, 80);
     });
   }
 
@@ -221,12 +199,12 @@ export class Home {
     return new Promise((resolve) => {
       element.style.transform = 'translateX(-50%) translateY(100%)';
       element.style.opacity = '0';
-      element.style.transition = 'all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
+      element.style.transition = 'all 0.7s cubic-bezier(0.175, 0.885, 0.32, 1.275)';
       
       setTimeout(() => {
         element.style.transform = 'translateX(-50%) translateY(0)';
         element.style.opacity = '1';
-        setTimeout(() => resolve(), 800);
+        setTimeout(() => resolve(), 700);
       }, 50);
     });
   }
@@ -235,12 +213,12 @@ export class Home {
     return new Promise((resolve) => {
       element.style.transform = 'translateX(-50%) translateY(0) scale(0)';
       element.style.opacity = '0';
-      element.style.transition = 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      element.style.transition = 'all 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       
       setTimeout(() => {
         element.style.transform = 'translateX(-50%) translateY(0) scale(1)';
         element.style.opacity = '1';
-        setTimeout(() => resolve(), 700);
+        setTimeout(() => resolve(), 600);
       }, 50);
     });
   }
@@ -249,12 +227,12 @@ export class Home {
     return new Promise((resolve) => {
       element.style.transform = 'translateX(-50%) translateY(-50px) scale(0.3)';
       element.style.opacity = '0';
-      element.style.transition = 'all 0.9s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
+      element.style.transition = 'all 0.8s cubic-bezier(0.68, -0.55, 0.265, 1.55)';
       
       setTimeout(() => {
         element.style.transform = 'translateX(-50%) translateY(0) scale(1)';
         element.style.opacity = '1';
-        setTimeout(() => resolve(), 900);
+        setTimeout(() => resolve(), 800);
       }, 50);
     });
   }
@@ -263,12 +241,26 @@ export class Home {
     return new Promise((resolve) => {
       element.style.transform = 'translateX(-50%) translateY(0) rotateY(-90deg)';
       element.style.opacity = '0';
-      element.style.transition = 'all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
+      element.style.transition = 'all 0.7s cubic-bezier(0.25, 0.46, 0.45, 0.94)';
       
       setTimeout(() => {
         element.style.transform = 'translateX(-50%) translateY(0) rotateY(0)';
         element.style.opacity = '1';
-        setTimeout(() => resolve(), 800);
+        setTimeout(() => resolve(), 700);
+      }, 50);
+    });
+  }
+
+  private async fadeInEffect(element: HTMLElement): Promise<void> {
+    return new Promise((resolve) => {
+      element.style.transform = 'translateX(-50%) translateY(0) scale(0.8)';
+      element.style.opacity = '0';
+      element.style.transition = 'all 0.6s ease-out';
+      
+      setTimeout(() => {
+        element.style.transform = 'translateX(-50%) translateY(0) scale(1)';
+        element.style.opacity = '1';
+        setTimeout(() => resolve(), 600);
       }, 50);
     });
   }

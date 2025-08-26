@@ -1,0 +1,263 @@
+ <div class="article-editor">
+      <!-- Editor Header -->
+      <div class="editor-header">
+        <div class="header-left">
+          <button class="back-btn" (click)="goBack()">
+            <i class="fas fa-arrow-left"></i>
+            Back to Dashboard
+          </button>
+        </div>
+        
+        <div class="header-center">
+          <span class="editor-title">{{ isEditing ? 'Edit Article' : 'Create New Article' }}</span>
+        </div>
+
+        <div class="header-actions">
+          <button class="save-btn draft" (click)="saveDraft()" [disabled]="isSaving">
+            <i class="fas fa-save"></i>
+            {{ isSaving ? 'Saving...' : 'Save Draft' }}
+          </button>
+          <button class="save-btn publish" (click)="publishArticle()" [disabled]="!canPublish() || isSaving">
+            <i class="fas fa-rocket"></i>
+            {{ isSaving ? 'Publishing...' : 'Publish' }}
+          </button>
+        </div>
+      </div>
+
+      <!-- Main Editor -->
+      <div class="editor-main">
+        <!-- Article Settings Panel -->
+        <div class="settings-panel" [class.collapsed]="!showSettings">
+          <div class="panel-header">
+            <h3>Article Settings</h3>
+            <button class="toggle-btn" (click)="toggleSettings()">
+              <i [class]="showSettings ? 'fas fa-chevron-right' : 'fas fa-chevron-left'"></i>
+            </button>
+          </div>
+
+          <div class="panel-content" *ngIf="showSettings">
+            <!-- Category -->
+            <div class="form-group">
+              <label>Category</label>
+              <select [(ngModel)]="article.category" class="form-select">
+                <option value="">Select Category</option>
+                <option value="Algorithms">Algorithms</option>
+                <option value="System Design">System Design</option>
+                <option value="Frontend">Frontend</option>
+                <option value="Backend">Backend</option>
+                <option value="Tutorials">Tutorials</option>
+              </select>
+            </div>
+
+            <!-- Difficulty -->
+            <div class="form-group">
+              <label>Difficulty Level</label>
+              <div class="difficulty-options">
+                <button 
+                  *ngFor="let level of difficultyLevels"
+                  class="difficulty-btn"
+                  [class.active]="article.difficulty === level"
+                  (click)="article.difficulty = level">
+                  {{ level }}
+                </button>
+              </div>
+            </div>
+
+            <!-- Tags -->
+            <div class="form-group">
+              <label>Tags</label>
+              <div class="tags-input">
+                <div class="tags-display">
+                  <span 
+                    *ngFor="let tag of article.tags; let i = index"
+                    class="tag-item">
+                    {{ tag }}
+                    <button (click)="removeTag(i)" class="remove-tag">×</button>
+                  </span>
+                </div>
+                <input
+                  type="text"
+                  [(ngModel)]="newTag"
+                  (keyup.enter)="addTag()"
+                  placeholder="Add tags..."
+                  class="tag-input">
+              </div>
+            </div>
+
+            <!-- Featured Image -->
+            <div class="form-group">
+              <label>Featured Image URL</label>
+              <input
+                type="url"
+                [(ngModel)]="article.imageUrl"
+                placeholder="https://example.com/image.jpg"
+                class="form-input">
+              <div class="image-preview" *ngIf="article.imageUrl">
+                <img [src]="article.imageUrl" [alt]="article.title" (error)="onImageError()">
+              </div>
+            </div>
+
+            <!-- Reading Time -->
+            <div class="form-group">
+              <label>Estimated Reading Time</label>
+              <div class="reading-time">
+                <span>{{ article.readingTime }} minutes</span>
+                <small>(Auto-calculated from content)</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Content Editor -->
+        <div class="content-editor">
+          <!-- Title Input -->
+          <div class="title-section">
+            <textarea
+              [(ngModel)]="article.title"
+              (input)="onTitleChange()"
+              placeholder="Article title..."
+              class="title-input"
+              rows="1"></textarea>
+            <div class="title-char-count">{{ article.title.length }}/100</div>
+          </div>
+
+          <!-- Excerpt Input -->
+          <div class="excerpt-section">
+            <textarea
+              [(ngModel)]="article.excerpt"
+              (input)="onExcerptChange()"
+              placeholder="Write a compelling excerpt that summarizes your article..."
+              class="excerpt-input"
+              rows="3"></textarea>
+            <div class="excerpt-char-count">{{ article.excerpt.length }}/200</div>
+          </div>
+
+          <!-- Content Toolbar -->
+          <div class="content-toolbar">
+            <div class="toolbar-group">
+              <button class="toolbar-btn" (click)="insertFormat('bold')" title="Bold">
+                <i class="fas fa-bold"></i>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('italic')" title="Italic">
+                <i class="fas fa-italic"></i>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('code')" title="Inline Code">
+                <i class="fas fa-code"></i>
+              </button>
+            </div>
+
+            <div class="toolbar-group">
+              <button class="toolbar-btn" (click)="insertFormat('h2')" title="Heading 2">
+                <i class="fas fa-heading"></i>
+                <sub>2</sub>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('h3')" title="Heading 3">
+                <i class="fas fa-heading"></i>
+                <sub>3</sub>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('quote')" title="Quote">
+                <i class="fas fa-quote-left"></i>
+              </button>
+            </div>
+
+            <div class="toolbar-group">
+              <button class="toolbar-btn" (click)="insertFormat('ul')" title="Bullet List">
+                <i class="fas fa-list-ul"></i>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('ol')" title="Numbered List">
+                <i class="fas fa-list-ol"></i>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('link')" title="Link">
+                <i class="fas fa-link"></i>
+              </button>
+            </div>
+
+            <div class="toolbar-group">
+              <button class="toolbar-btn" (click)="insertFormat('codeblock')" title="Code Block">
+                <i class="fas fa-file-code"></i>
+              </button>
+              <button class="toolbar-btn" (click)="insertFormat('image')" title="Image">
+                <i class="fas fa-image"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Main Content Textarea -->
+          <div class="main-content">
+            <textarea
+              #contentTextarea
+              [(ngModel)]="article.content"
+              (input)="onContentChange()"
+              placeholder="Write your article content here... 
+
+You can use Markdown syntax:
+- **bold text** or __bold text__
+- *italic text* or _italic text_
+- `inline code`
+- ## Heading 2
+- ### Heading 3
+- [Link Text](https://example.com)
+- ![Image Alt Text](https://example.com/image.jpg)
+
+```javascript
+// Code blocks
+function example() {
+  console.log('Hello, World!');
+}
+```
+
+> Blockquotes for important information
+
+1. Numbered lists
+2. Are great for steps
+
+- Bullet points
+- For general lists
+              "
+              class="content-textarea"
+              rows="25"></textarea>
+            
+            <div class="content-stats">
+              <div class="word-count">
+                Words: {{ getWordCount() }} | Characters: {{ article.content.length }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Preview Modal -->
+      <div class="preview-modal" *ngIf="showPreview" (click)="closePreview()">
+        <div class="preview-content" (click)="$event.stopPropagation()">
+          <div class="preview-header">
+            <h3>Article Preview</h3>
+            <button class="close-preview" (click)="closePreview()">
+              <i class="fas fa-times"></i>
+            </button>
+          </div>
+          
+          <div class="preview-body">
+            <div class="preview-article">
+              <div class="preview-meta">
+                <span class="preview-category">{{ article.category }}</span>
+                <span class="preview-difficulty">{{ article.difficulty }}</span>
+                <span class="preview-reading-time">{{ article.readingTime }} min read</span>
+              </div>
+              
+              <h1 class="preview-title">{{ article.title }}</h1>
+              <p class="preview-excerpt">{{ article.excerpt }}</p>
+              
+              <div class="preview-image" *ngIf="article.imageUrl">
+                <img [src]="article.imageUrl" [alt]="article.title">
+              </div>
+              
+              <div class="preview-tags">
+                <span *ngFor="let tag of article.tags" class="preview-tag">#{{ tag }}</span>
+              </div>
+              
+              <div class="preview-content-text" [innerHTML]="getPreviewContent()"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>

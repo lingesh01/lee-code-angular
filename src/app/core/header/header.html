@@ -5,10 +5,11 @@
         <span class="logo-text">Lee Code</span>
       </a>
       
+      <!-- Desktop Navigation -->
       <ul class="nav-links">
         <li><a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Home</a></li>
-        <li><a routerLink="/portfolio" routerLinkActive="active">Portfolio</a></li>
         <li><a routerLink="/articles" routerLinkActive="active">Articles</a></li>
+        <li><a routerLink="/portfolio" routerLinkActive="active">Video</a></li>
         <li><a routerLink="/about" routerLinkActive="active">About</a></li>
       </ul>
       
@@ -19,9 +20,186 @@
         </a>
       </div>
       
-      <button class="mobile-menu-btn" (click)="toggleMobileMenu()">
-        <i class="fas fa-bars"></i>
+      <!-- Mobile Menu Toggle Button -->
+      <button 
+        class="mobile-menu-btn" 
+        [class.active]="isMobileMenuOpen"
+        (click)="toggleMobileMenu()"
+        [attr.aria-label]="isMobileMenuOpen ? 'Close menu' : 'Open menu'"
+        [attr.aria-expanded]="isMobileMenuOpen">
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
+        <span class="hamburger-line"></span>
       </button>
     </div>
   </nav>
+
+  <!-- Mobile Sidebar Menu -->
+  <div 
+    class="mobile-menu-overlay" 
+    [class.active]="isMobileMenuOpen"
+    (click)="onBackdropClick($event)"
+    *ngIf="isMobileMenuOpen">
+    
+    <nav class="mobile-menu" [class.active]="isMobileMenuOpen" (click)="$event.stopPropagation()">
+      <!-- Mobile Menu Header -->
+      <div class="mobile-menu-header">
+        <div class="mobile-logo">
+          <span class="mobile-logo-text">Lee Code</span>
+          <span class="mobile-logo-tagline">Code • Learn • Grow</span>
+        </div>
+        <button 
+          class="mobile-menu-close" 
+          (click)="closeMobileMenu()"
+          aria-label="Close menu">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+
+      <!-- Mobile Menu Content -->
+      <div class="mobile-menu-content">
+        <!-- Navigation Links -->
+        <ul class="mobile-nav-links">
+          <li class="mobile-nav-item">
+            <a routerLink="/" 
+               routerLinkActive="active" 
+               [routerLinkActiveOptions]="{exact: true}"
+               (click)="onMobileMenuItemClick()"
+               class="mobile-nav-link">
+              <div class="nav-link-icon">
+                <i class="fas fa-home"></i>
+              </div>
+              <div class="nav-link-content">
+                <span class="nav-link-title">Home</span>
+                <span class="nav-link-description">Welcome & Overview</span>
+              </div>
+              <div class="nav-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </a>
+          </li>
+
+          <li class="mobile-nav-item">
+            <a routerLink="/portfolio" 
+               routerLinkActive="active"
+               (click)="onMobileMenuItemClick()"
+               class="mobile-nav-link">
+              <div class="nav-link-icon">
+                <i class="fas fa-briefcase"></i>
+              </div>
+              <div class="nav-link-content">
+                <span class="nav-link-title">Portfolio</span>
+                <span class="nav-link-description">My Projects & Work</span>
+              </div>
+              <div class="nav-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </a>
+          </li>
+
+          <li class="mobile-nav-item">
+            <a routerLink="/articles" 
+               routerLinkActive="active"
+               (click)="onMobileMenuItemClick()"
+               class="mobile-nav-link">
+              <div class="nav-link-icon">
+                <i class="fas fa-newspaper"></i>
+              </div>
+              <div class="nav-link-content">
+                <span class="nav-link-title">Articles</span>
+                <span class="nav-link-description">Technical Tutorials</span>
+              </div>
+              <div class="nav-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </a>
+          </li>
+
+          <li class="mobile-nav-item">
+            <a routerLink="/about" 
+               routerLinkActive="active"
+               (click)="onMobileMenuItemClick()"
+               class="mobile-nav-link">
+              <div class="nav-link-icon">
+                <i class="fas fa-user"></i>
+              </div>
+              <div class="nav-link-content">
+                <span class="nav-link-title">About</span>
+                <span class="nav-link-description">My Story & Skills</span>
+              </div>
+              <div class="nav-link-arrow">
+                <i class="fas fa-chevron-right"></i>
+              </div>
+            </a>
+          </li>
+        </ul>
+
+        <!-- Mobile Social Links -->
+        <div class="mobile-social-section">
+          <h3 class="mobile-section-title">Connect With Me</h3>
+          <div class="mobile-social-links">
+            <a href="https://youtube.com/@leecodetamil" 
+               target="_blank" 
+               class="mobile-social-link youtube">
+              <div class="social-icon">
+                <i class="fab fa-youtube"></i>
+              </div>
+              <div class="social-content">
+                <span class="social-title">YouTube</span>
+                <span class="social-description">10K+ Subscribers</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/leecode" 
+               target="_blank" 
+               class="mobile-social-link github">
+              <div class="social-icon">
+                <i class="fab fa-github"></i>
+              </div>
+              <div class="social-content">
+                <span class="social-title">GitHub</span>
+                <span class="social-description">Open Source Projects</span>
+              </div>
+            </a>
+
+            <a href="https://linkedin.com/in/leecode" 
+               target="_blank" 
+               class="mobile-social-link linkedin">
+              <div class="social-icon">
+                <i class="fab fa-linkedin"></i>
+              </div>
+              <div class="social-content">
+                <span class="social-title">LinkedIn</span>
+                <span class="social-description">Professional Network</span>
+              </div>
+            </a>
+          </div>
+        </div>
+
+        <!-- Mobile Call to Action -->
+        <div class="mobile-cta-section">
+          <div class="mobile-cta-card">
+            <div class="cta-content">
+              <h4>Ready to Learn?</h4>
+              <p>Join thousands learning algorithms & coding</p>
+            </div>
+            <a href="https://youtube.com/@leecodetamil" 
+               target="_blank" 
+               class="mobile-cta-btn">
+              <i class="fas fa-play"></i>
+              Start Learning
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Mobile Menu Footer -->
+      <div class="mobile-menu-footer">
+        <div class="mobile-footer-content">
+          <p class="mobile-copyright">&copy; 2024 Lee Code. Made with ❤️</p>
+          <p class="mobile-tagline">Simplifying Code • One Tutorial at a Time</p>
+        </div>
+      </div>
+    </nav>
+  </div>
 </header>

@@ -1,0 +1,114 @@
+    <div class="auth-page">
+      <div class="auth-container">
+        <div class="auth-card">
+          <!-- Header -->
+          <div class="auth-header">
+            <div class="brand-logo">
+              <h2>Lee Code</h2>
+            </div>
+            <h1 class="auth-title">Welcome Back</h1>
+            <p class="auth-subtitle">Sign in to your account</p>
+          </div>
+
+          <!-- Login Form -->
+          <form class="auth-form" (ngSubmit)="onSubmit()" #loginForm="ngForm">
+            <div class="form-group">
+              <label for="email">Email Address</label>
+              <div class="input-wrapper">
+                <i class="fas fa-envelope"></i>
+                <input
+                  type="email"
+                  id="email"
+                  name="email"
+                  [(ngModel)]="credentials.email"
+                  required
+                  email
+                  placeholder="Enter your email"
+                  class="form-input"
+                  [class.invalid]="emailField.invalid && emailField.touched"
+                  #emailField="ngModel">
+              </div>
+              <div class="error-message" *ngIf="emailField.invalid && emailField.touched">
+                <span *ngIf="emailField.errors?.['required']">Email is required</span>
+                <span *ngIf="emailField.errors?.['email']">Please enter a valid email</span>
+              </div>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password</label>
+              <div class="input-wrapper">
+                <i class="fas fa-lock"></i>
+                <input
+                  [type]="showPassword ? 'text' : 'password'"
+                  id="password"
+                  name="password"
+                  [(ngModel)]="credentials.password"
+                  required
+                  minlength="6"
+                  placeholder="Enter your password"
+                  class="form-input"
+                  [class.invalid]="passwordField.invalid && passwordField.touched"
+                  #passwordField="ngModel">
+                <button
+                  type="button"
+                  class="password-toggle"
+                  (click)="togglePassword()">
+                  <i [class]="showPassword ? 'fas fa-eye-slash' : 'fas fa-eye'"></i>
+                </button>
+              </div>
+              <div class="error-message" *ngIf="passwordField.invalid && passwordField.touched">
+                <span *ngIf="passwordField.errors?.['required']">Password is required</span>
+                <span *ngIf="passwordField.errors?.['minlength']">Password must be at least 6 characters</span>
+              </div>
+            </div>
+
+            <!-- Remember Me & Forgot Password -->
+            <div class="form-options">
+              <label class="checkbox-label">
+                <input type="checkbox" [(ngModel)]="rememberMe" name="rememberMe">
+                <span class="checkmark"></span>
+                Remember me
+              </label>
+              <a href="#" class="forgot-link">Forgot password?</a>
+            </div>
+
+            <!-- Error Message -->
+            <div class="auth-error" *ngIf="errorMessage">
+              <i class="fas fa-exclamation-circle"></i>
+              {{ errorMessage }}
+            </div>
+
+            <!-- Submit Button -->
+            <button
+              type="submit"
+              class="auth-button"
+              [disabled]="!loginForm.valid || isLoading"
+              [class.loading]="isLoading">
+              <i class="fas fa-spinner fa-spin" *ngIf="isLoading"></i>
+              <i class="fas fa-sign-in-alt" *ngIf="!isLoading"></i>
+              {{ isLoading ? 'Signing In...' : 'Sign In' }}
+            </button>
+          </form>
+
+          <!-- Demo Credentials -->
+          <div class="demo-credentials">
+            <h4>Demo Credentials:</h4>
+            <div class="demo-options">
+              <button class="demo-btn" (click)="fillAdminCredentials()">
+                <i class="fas fa-user-shield"></i>
+                Admin Login
+              </button>
+              <button class="demo-btn" (click)="fillUserCredentials()">
+                <i class="fas fa-user"></i>
+                User Login
+              </button>
+            </div>
+          </div>
+
+          <!-- Sign Up Link -->
+          <div class="auth-footer">
+            <p>Don't have an account? <a routerLink="/register">Sign up</a></p>
+          </div>
+        </div>
+      </div>
+    </div>

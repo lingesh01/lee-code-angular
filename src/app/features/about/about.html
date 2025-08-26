@@ -1,4 +1,5 @@
- <div class="about-page">
+
+<div class="about-page">
       
       <!-- Hero Section -->
       <section class="about-hero">
@@ -13,33 +14,33 @@
         <div class="container">
           <div class="hero-content">
             <div class="hero-text">
-              <div class="hero-badge">
+              <div class="hero-badge" appAnimateOnScroll="fadeInLeft" [animationDelay]="0">
                 <i class="fas fa-user-graduate"></i>
                 Get to know me
               </div>
-              <h1 class="hero-title">
-                Hi, I'm <span class="highlight">Lee Code</span>
+              <h1 class="hero-title" appAnimateOnScroll="fadeInLeft" [animationDelay]="200">
+                Hi, I'm <span class="highlight">Lingesh</span>
               </h1>
-              <p class="hero-subtitle">
+              <p class="hero-subtitle" appAnimateOnScroll="fadeInLeft" [animationDelay]="400">
                 Software Engineer, Algorithm Expert & Code Educator
               </p>
-              <div class="hero-stats">
+              <div class="hero-stats" appAnimateOnScroll="fadeInUp" [animationDelay]="600">
                 <div class="stat">
-                  <span class="stat-number">5+</span>
+                  <span class="stat-number">3+</span>
                   <span class="stat-label">Years Coding</span>
                 </div>
                 <div class="stat">
-                  <span class="stat-number">100+</span>
+                  <span class="stat-number">50+</span>
                   <span class="stat-label">Tutorials Created</span>
                 </div>
                 <div class="stat">
-                  <span class="stat-number">10K+</span>
+                  <span class="stat-number">5K+</span>
                   <span class="stat-label">Students Helped</span>
                 </div>
               </div>
             </div>
             
-            <div class="hero-visual">
+            <!-- <div class="hero-visual" appAnimateOnScroll="fadeInRight" [animationDelay]="400">
               <div class="profile-card">
                 <div class="profile-image">
                   <img src="https://via.placeholder.com/300x300" alt="Lee Code">
@@ -49,17 +50,52 @@
                   </div>
                 </div>
                 <div class="profile-info">
-                  <h3>Lee Code</h3>
-                  <p>Chennai, India 🇮🇳</p>
+                  <h3>Lingesh</h3>
+                  <p>Bangalore, India 🇮🇳</p>
                   <div class="quick-contact">
-                    <a href="mailto:hello@leecode.dev" class="contact-btn">
+                    <a href="mailto:leecodetamil@gmail.com" class="contact-btn">
                       <i class="fas fa-envelope"></i>
                       Get in touch
                     </a>
                   </div>
                 </div>
               </div>
-            </div>
+            </div> -->
+
+            <!-- Updated About Page Profile Section -->
+<!-- Replace the existing profile image section in your about.html -->
+
+<div class="hero-visual">
+  <div class="profile-card">
+    <div class="profile-image">
+      <!-- <img 
+        src="assets/images/lingesh-profile.jpg" 
+        alt="Lingesh - Lee Code"
+        this.onerror=null;"
+        loading="lazy"> -->
+
+        <img [src]="profileImage" alt="Lingesh - Lee Code">
+        
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span>Available for mentoring</span>
+      </div>
+    </div>
+    <div class="profile-info">
+      <h3>Lingesh (Lee Code)</h3>
+      <p>Chennai, India 🇮🇳</p>
+      <div class="quick-contact">
+        <a href="mailto:contact@leecode.in" class="contact-btn">
+          <i class="fas fa-envelope"></i>
+          Get in touch
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
           </div>
         </div>
       </section>
@@ -67,7 +103,7 @@
       <!-- My Story Section -->
       <section class="my-story">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header" appAnimateOnScroll="fadeInUp" [animationDelay]="0">
             <h2 class="section-title">
               <i class="fas fa-book-open"></i>
               My Story
@@ -80,7 +116,7 @@
           <div class="story-content">
             <div class="story-grid">
               <div class="story-text">
-                <div class="story-chapter">
+                <div class="story-chapter" appAnimateOnScroll="fadeInLeft" [animationDelay]="100">
                   <h3 class="chapter-title">The Beginning</h3>
                   <p>
                     My coding journey began during my college years when I first encountered a "Hello, World!" 
@@ -94,7 +130,7 @@
                   </p>
                 </div>
 
-                <div class="story-chapter">
+                <div class="story-chapter" appAnimateOnScroll="fadeInLeft" [animationDelay]="200">
                   <h3 class="chapter-title">The Turning Point</h3>
                   <p>
                     During my first internship, I struggled with data structures and algorithms. The concepts 
@@ -107,10 +143,10 @@
                   </p>
                 </div>
 
-                <div class="story-chapter">
+                <div class="story-chapter" appAnimateOnScroll="fadeInLeft" [animationDelay]="300">
                   <h3 class="chapter-title">Building the Community</h3>
                   <p>
-                    In 2020, I launched @leecodetamil on YouTube with a simple mission: make programming concepts 
+                    In 2025 , I launched @leecodetamil on YouTube with a simple mission: make programming concepts 
                     accessible to Tamil-speaking developers. What started as weekend hobby videos grew into a 
                     thriving community of learners and professionals.
                   </p>
@@ -121,34 +157,34 @@
                 </div>
               </div>
 
-              <div class="story-visual">
+              <div class="story-visual" appAnimateOnScroll="fadeInRight" [animationDelay]="200">
                 <div class="journey-timeline">
-                  <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                      <h4>2018</h4>
-                      <p>Started Learning Programming</p>
-                    </div>
-                  </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" appAnimateOnScroll="fadeInUp" [animationDelay]="100">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                       <h4>2020</h4>
-                      <p>First Software Engineering Job</p>
+                      <p>Started Learning Programming</p>
                     </div>
                   </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" appAnimateOnScroll="fadeInUp" [animationDelay]="200">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
                       <h4>2021</h4>
-                      <p>Launched @leecodetamil</p>
+                      <p>First Job - Technical Trainner(5K+ Students & Counting)</p>
                     </div>
                   </div>
-                  <div class="timeline-item">
+                  <div class="timeline-item" appAnimateOnScroll="fadeInUp" [animationDelay]="300">
                     <div class="timeline-dot"></div>
                     <div class="timeline-content">
-                      <h4>2024</h4>
-                      <p>10K+ Students & Counting</p>
+                      <h4>2022</h4>
+                      <p>Software Developer</p>
+                    </div>
+                  </div>
+                  <div class="timeline-item" appAnimateOnScroll="fadeInUp" [animationDelay]="400">
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                      <h4>2025</h4>
+                      <p>Project Lead</p>
                     </div>
                   </div>
                 </div>
@@ -161,7 +197,7 @@
       <!-- Skills & Expertise Section -->
       <section class="skills-expertise">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header" appAnimateOnScroll="fadeInUp" [animationDelay]="0">
             <h2 class="section-title">
               <i class="fas fa-cogs"></i>
               Skills & Expertise
@@ -175,7 +211,8 @@
             <div 
               *ngFor="let skill of skills; let i = index"
               class="skill-item"
-              [style.animation-delay.ms]="i * 100">
+              appAnimateOnScroll="fadeInUp"
+              [animationDelay]="i * 100">
               <div class="skill-header">
                 <div class="skill-info">
                   <h4>{{ skill.name }}</h4>
@@ -199,7 +236,7 @@
       <!-- Values & Philosophy Section -->
       <section class="values-philosophy">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header" appAnimateOnScroll="fadeInUp" [animationDelay]="0">
             <h2 class="section-title">
               <i class="fas fa-heart"></i>
               My Values & Teaching Philosophy
@@ -207,7 +244,11 @@
           </div>
 
           <div class="values-grid">
-            <div class="value-card" *ngFor="let value of values">
+            <div 
+              class="value-card" 
+              *ngFor="let value of values; let i = index"
+              appAnimateOnScroll="scaleIn"
+              [animationDelay]="i * 150">
               <div class="value-icon">
                 <i [class]="value.icon"></i>
               </div>
@@ -221,7 +262,7 @@
       <!-- Fun Facts Section -->
       <section class="fun-facts">
         <div class="container">
-          <div class="section-header">
+          <div class="section-header" appAnimateOnScroll="fadeInUp" [animationDelay]="0">
             <h2 class="section-title">
               <i class="fas fa-smile"></i>
               Fun Facts About Me
@@ -232,7 +273,11 @@
           </div>
 
           <div class="facts-grid">
-            <div class="fact-card" *ngFor="let fact of funFacts">
+            <div 
+              class="fact-card" 
+              *ngFor="let fact of funFacts; let i = index"
+              appAnimateOnScroll="fadeInUp"
+              [animationDelay]="i * 100">
               <div class="fact-icon">{{ fact.icon }}</div>
               <h4>{{ fact.title }}</h4>
               <p>{{ fact.description }}</p>
@@ -245,7 +290,7 @@
       <section class="connect-section">
         <div class="container">
           <div class="connect-content">
-            <div class="connect-text">
+            <div class="connect-text" appAnimateOnScroll="fadeInLeft" [animationDelay]="0">
               <h2>Let's Connect & Build Something Amazing</h2>
               <p>
                 I'm always excited to connect with fellow developers, students, and anyone passionate about 
@@ -254,21 +299,21 @@
               </p>
               
               <div class="connect-options">
-                <div class="connect-option">
+                <div class="connect-option" appAnimateOnScroll="fadeInLeft" [animationDelay]="100">
                   <i class="fas fa-comments"></i>
                   <div>
                     <h4>General Questions</h4>
                     <p>Drop me a message for any programming or career questions</p>
                   </div>
                 </div>
-                <div class="connect-option">
+                <div class="connect-option" appAnimateOnScroll="fadeInLeft" [animationDelay]="200">
                   <i class="fas fa-graduation-cap"></i>
                   <div>
                     <h4>Mentorship</h4>
                     <p>Limited mentorship slots available for serious learners</p>
                   </div>
                 </div>
-                <div class="connect-option">
+                <div class="connect-option" appAnimateOnScroll="fadeInLeft" [animationDelay]="300">
                   <i class="fas fa-handshake"></i>
                   <div>
                     <h4>Collaboration</h4>
@@ -278,15 +323,17 @@
               </div>
             </div>
 
-            <div class="social-links">
+            <div class="social-links" appAnimateOnScroll="fadeInRight" [animationDelay]="200">
               <h3>Find me on</h3>
               <div class="social-grid">
                 <a 
-                  *ngFor="let social of socialLinks"
+                  *ngFor="let social of socialLinks; let i = index"
                   [href]="social.url"
                   target="_blank"
                   class="social-link"
-                  [style.--social-color]="social.color">
+                  [style.--social-color]="social.color"
+                  appAnimateOnScroll="fadeInRight"
+                  [animationDelay]="i * 100">
                   <div class="social-icon">
                     <i [class]="social.icon"></i>
                   </div>
@@ -307,7 +354,7 @@
       <!-- Newsletter Section -->
       <section class="newsletter-section">
         <div class="container">
-          <div class="newsletter-card">
+          <div class="newsletter-card" appAnimateOnScroll="scaleIn" [animationDelay]="0">
             <div class="newsletter-content">
               <div class="newsletter-icon">
                 <i class="fas fa-paper-plane"></i>
