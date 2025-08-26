@@ -41,7 +41,7 @@ export class About {
 
   newsletterEmail = '';
 
-  profileImage = 'assets/images/lingesh-profile.jpg';
+  profileImage = 'assets/lingesh-profile.jpg';
   
   // Following state for the author bio section
   isFollowing = false;
