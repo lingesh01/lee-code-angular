@@ -1098,6 +1098,11 @@
   }
 }
 
+
+
+
+
+
 /* Touch Device Optimizations */
 @media (hover: none) and (pointer: coarse) {
   .skill-card:hover,
@@ -1141,5 +1146,18 @@
   .icon-orbit,
   .mouse .wheel {
     animation: none !important;
+  }
+}
+
+
+@media screen and (max-width: 480px) {
+  .scroll-indicator {
+    display: none !important;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  .scroll-indicator {
+    display: none !important;
   }
 }
